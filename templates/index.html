@@ -146,28 +146,17 @@
         </div>
 
         <div class="last-update">
-            <p>数据每30秒自动更新一次（上午10点至下午6点）</p>
+            <p>数据每10秒自动更新一次</p>
             <p>仅显示AUD/CNY汇率（现汇）</p>
         </div>
     </div>
 
     <script>
-        let ratesData = {};
+        // 从后端获取的初始数据
+        const initialRates = {{ rates|tojson }};
+        const companies = {{ companies|tojson }};
+        let ratesData = initialRates;
         let countdownTimer = null;
-        let countdownValue = 10;
-
-        // 加载汇率数据
-        async function loadRates() {
-            try {
-                const response = await fetch('/api/rates');
-                ratesData = await response.json();
-                displayRates();
-            } catch (error) {
-                console.error('加载数据失败:', error);
-                document.getElementById('rates-container').innerHTML =
-                    '<div class="loading">加载数据失败，请稍后重试</div>';
-            }
-        }
 
         // 显示汇率数据
         function displayRates() {
@@ -180,58 +169,57 @@
 
             let html = '<div class="rates-grid">';
 
-            // 获取公司列表
-            fetch('/api/companies')
-                .then(response => response.json())
-                .then(companies => {
-                    for (const [companyKey, companyInfo] of Object.entries(companies)) {
-                        const companyRates = ratesData[companyKey];
-                        const hasData = companyRates && companyRates.AUD_CNY &&
-                                      (companyRates.AUD_CNY.buy !== null || companyRates.AUD_CNY.sell !== null);
+            for (const [companyKey, companyInfo] of Object.entries(companies)) {
+                const companyRates = ratesData[companyKey];
+                const hasData = companyRates && companyRates.AUD_CNY &&
+                              (companyRates.AUD_CNY.buy !== null || companyRates.AUD_CNY.sell !== null);
 
-                        html += `
-                            <div class="rate-card" id="card-${companyKey}">
-                                <div class="company-name">
-                                    <span class="status-indicator ${hasData ? 'status-online' : 'status-offline'}"></span>
-                                    ${companyInfo.name}
-                                </div>
-                                <div class="rate-info">
-                                    <span class="rate-label">买入价: </span>
-                                    <span class="rate-value">
-                                        ${hasData && companyRates.AUD_CNY.buy !== null ?
-                                          companyRates.AUD_CNY.buy.toFixed(4) : '--'}
-                                    </span>
-                                </div>
-                                <div class="rate-info">
-                                    <span class="rate-label">卖出价: </span>
-                                    <span class="rate-value">
-                                        ${hasData && companyRates.AUD_CNY.sell !== null ?
-                                          companyRates.AUD_CNY.sell.toFixed(4) : '--'}
-                                    </span>
-                                </div>
-                                <div style="margin-top: 10px; font-size: 12px; color: #666;">
-                                    <a href="${companyInfo.url}" target="_blank">查看官网</a>
-                                </div>
-                            </div>
-                        `;
-                    }
+                html += `
+                    <div class="rate-card" id="card-${companyKey}">
+                        <div class="company-name">
+                            <span class="status-indicator ${hasData ? 'status-online' : 'status-offline'}"></span>
+                            ${companyInfo.name}
+                        </div>
+                        <div class="rate-info">
+                            <span class="rate-label">买入价: </span>
+                            <span class="rate-value">
+                                ${hasData && companyRates.AUD_CNY.buy !== null ?
+                                  companyRates.AUD_CNY.buy.toFixed(4) : '--'}
+                            </span>
+                        </div>
+                        <div class="rate-info">
+                            <span class="rate-label">卖出价: </span>
+                            <span class="rate-value">
+                                ${hasData && companyRates.AUD_CNY.sell !== null ?
+                                  companyRates.AUD_CNY.sell.toFixed(4) : '--'}
+                            </span>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                            <a href="${companyInfo.url}" target="_blank">查看官网</a>
+                        </div>
+                    </div>
+                `;
+            }
 
-                    html += '</div>';
-                    container.innerHTML = html;
+            html += '</div>';
+            container.innerHTML = html;
 
-                    // 更新最后更新时间
-                    if (ratesData.timestamp) {
-                        const timestamp = new Date(ratesData.timestamp);
-                        document.getElementById('last-update').textContent =
-                            `最后更新: ${timestamp.toLocaleString('zh-CN')}`;
-                    }
-                })
-                .catch(error => {
-                    console.error('加载公司信息失败:', error);
-                });
+            // 更新最后更新时间
+            if (ratesData.timestamp) {
+                try {
+                    const timestamp = new Date(ratesData.timestamp);
+                    document.getElementById('last-update').textContent =
+                        `最后更新: ${timestamp.toLocaleString('zh-CN')}`;
+                } catch (e) {
+                    document.getElementById('last-update').textContent =
+                        `更新时间: ${ratesData.timestamp}`;
+                }
+            } else {
+                document.getElementById('last-update').textContent = '暂无数据';
+            }
         }
 
-        // 手动更新汇率 - 立即生效
+        // 手动更新汇率
         async function updateRates() {
             const btn = document.getElementById('update-btn');
             btn.textContent = '更新中...';
@@ -242,16 +230,11 @@
                 const response = await fetch('/api/update');
                 const result = await response.json();
 
-                if (result.status === 'success') {
-                    // 使用返回的最新数据立即更新显示
-                    if (result.rates) {
-                        ratesData = result.rates;
-                        displayRates();
-                    } else {
-                        loadRates();
-                    }
+                if (result.status === 'success' && result.rates) {
+                    ratesData = result.rates;
+                    displayRates();
                 } else {
-                    alert('更新失败: ' + result.message);
+                    alert('更新失败: ' + (result.message || '未知错误'));
                 }
             } catch (error) {
                 alert('更新失败: ' + error.message);
@@ -262,18 +245,16 @@
             }
         }
 
-        // 定时自动刷新 - 每10秒真正重新抓取数据
-        let autoRefreshTimer = null;
-        
+        // 定时自动刷新 - 每30秒
         function startAutoRefresh() {
             // 立即执行一次
             autoRefreshRates();
             
-            // 每10秒自动刷新
-            autoRefreshTimer = setInterval(autoRefreshRates, 10000);
+            // 每30秒自动刷新
+            setInterval(autoRefreshRates, 30000);
         }
 
-        // 自动刷新 - 真正重新抓取数据
+        // 自动刷新
         async function autoRefreshRates() {
             try {
                 const response = await fetch('/api/update');
@@ -287,9 +268,9 @@
             }
         }
 
-        // 页面加载时获取数据
+        // 页面加载时显示数据
         document.addEventListener('DOMContentLoaded', function() {
-            loadRates();
+            displayRates();
             startAutoRefresh();
         });
     </script>

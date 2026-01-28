@@ -38,22 +38,45 @@ COMPANIES = {
     }
 }
 
+# 默认数据（当没有数据时显示）
+DEFAULT_RATES = {
+    'dadeforex': {'AUD_CNY': {'buy': None, 'sell': None}},
+    'supay': {'AUD_CNY': {'buy': None, 'sell': None}},
+    'kundaxpay': {'AUD_CNY': {'buy': None, 'sell': None}},
+    'moneychain': {'AUD_CNY': {'buy': None, 'sell': None}},
+    'moneychase': {'AUD_CNY': {'buy': None, 'sell': None}},
+    'gtrading': {'AUD_CNY': {'buy': None, 'sell': None}},
+    'timestamp': None
+}
+
+def get_rates():
+    """获取汇率数据"""
+    json_file = os.path.join(os.path.dirname(__file__), 'exchange_rates.json')
+    
+    try:
+        if os.path.exists(json_file):
+            with open(json_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            # 验证数据是否有效
+            if data and 'timestamp' in data:
+                return data
+    except Exception as e:
+        print(f"Error loading rates: {e}")
+    
+    # 返回默认数据
+    return DEFAULT_RATES.copy()
+
 @app.route('/')
 def index():
     """显示汇率对比页面"""
-    return render_template('index.html')
+    rates_data = get_rates()
+    return render_template('index.html', rates=rates_data, companies=COMPANIES)
 
 @app.route('/api/rates')
 def api_rates():
     """返回汇率数据"""
-    json_file = os.path.join(os.path.dirname(__file__), 'exchange_rates.json')
-    
-    try:
-        with open(json_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        return jsonify(data)
-    except Exception as e:
-        return jsonify({'error': str(e)})
+    data = get_rates()
+    return jsonify(data)
 
 @app.route('/api/companies')
 def api_companies():
@@ -70,16 +93,20 @@ def api_update():
             cwd=os.path.dirname(os.path.abspath(__file__)),
             capture_output=True,
             text=True,
-            timeout=120
+            timeout=180  # 增加超时时间
         )
+        
+        print(f"Scraper stdout: {result.stdout[:500] if result.stdout else 'None'}")
+        print(f"Scraper stderr: {result.stderr[:500] if result.stderr else 'None'}")
         
         if result.returncode == 0:
             # 读取最新的数据返回给前端
-            with open('exchange_rates.json', 'r', encoding='utf-8') as f:
-                rates = json.load(f)
+            rates = get_rates()
             return jsonify({'status': 'success', 'rates': rates})
         else:
-            return jsonify({'status': 'error', 'message': result.stderr})
+            return jsonify({'status': 'error', 'message': result.stderr[-500:]})
+    except subprocess.TimeoutExpired:
+        return jsonify({'status': 'error', 'message': 'Timeout: scraping took too long'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
 
