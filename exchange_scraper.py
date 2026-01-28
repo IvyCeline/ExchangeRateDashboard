@@ -30,37 +30,49 @@ class ExchangeRateScraper:
         """抓取Moneychain的汇率"""
         try:
             url = self.companies['moneychain']
-            response = requests.get(url, headers=self.headers, timeout=10)
+            response = requests.get(url, headers=self.headers, timeout=15)
             response.raise_for_status()
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            page_text = soup.get_text(separator='\n')
             import re
             
-            # 查找买入/卖出价
-            buy_match = re.search(r'(现汇买入价|现汇买入|买入价|buy price|buy)\s*[:：]?\s*(\d+\.\d+)', page_text, re.I)
-            sell_match = re.search(r'(现汇卖出价|现汇卖出|卖出价|sell price|sell)\s*[:：]?\s*(\d+\.\d+)', page_text, re.I)
-            
-            if buy_match and sell_match:
-                buy = float(buy_match.group(2))
-                sell = float(sell_match.group(2))
-                logger.info("Moneychain: buy={}, sell={}".format(buy, sell))
-                return {'AUD_CNY': {'buy': buy, 'sell': sell}}
-            
-            # 查找表格数据
-            for table in soup.find_all('table'):
+            # 查找包含澳元/人民币的行
+            tables = soup.find_all('table')
+            for table in tables:
                 rows = table.find_all('tr')
                 for row in rows:
                     cells = row.find_all(['td', 'th'])
                     if len(cells) >= 3:
                         cell_texts = [c.get_text().strip() for c in cells]
-                        if '澳元' in str(cell_texts) and '人民币' in str(cell_texts):
-                            try:
-                                nums = [float(re.search(r'\d+\.\d+', c).group()) for c in cell_texts if re.search(r'\d+\.\d+', c)]
-                                if len(nums) >= 2:
-                                    return {'AUD_CNY': {'buy': nums[0], 'sell': nums[1]}}
-                            except:
-                                continue
+                        joined = ' '.join(cell_texts)
+                        
+                        # 检查是否是澳元/人民币行
+                        if ('澳元' in joined or 'AUD' in joined) and ('人民币' in joined or 'CNY' in joined):
+                            # 提取所有价格
+                            prices = []
+                            for cell in cells:
+                                text = cell.get_text().strip()
+                                if re.match(r'^4\.\d{4}$', text):
+                                    prices.append(float(text))
+                            
+                            if len(prices) >= 2:
+                                buy = max(prices)
+                                sell = min(prices)
+                                logger.info("Moneychain: buy={}, sell={}".format(buy, sell))
+                                return {'AUD_CNY': {'buy': buy, 'sell': sell}}
+            
+            # 备选：直接从页面文本中提取价格
+            page_text = soup.get_text()
+            all_prices = re.findall(r'4\.\d{4}', page_text)
+            if all_prices:
+                unique_prices = list(set([float(p) for p in all_prices]))
+                # 筛选合理范围
+                valid_prices = [p for p in unique_prices if 4.5 < p < 5.0]
+                if len(valid_prices) >= 2:
+                    buy = max(valid_prices)
+                    sell = min(valid_prices)
+                    logger.info("Moneychain (fallback): buy={}, sell={}".format(buy, sell))
+                    return {'AUD_CNY': {'buy': buy, 'sell': sell}}
             
             return {'AUD_CNY': {'buy': None, 'sell': None}}
         except Exception as e:
@@ -134,39 +146,74 @@ class ExchangeRateScraper:
     def scrape_dadeforex(self):
         """抓取Dadeforex的汇率"""
         try:
-            # 直接从网页抓取
             url = self.companies['dadeforex']
-            response = requests.get(url, headers=self.headers, timeout=15)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.content, 'html.parser')
             
-            import re
+            # 尝试多个来源
+            sources = [
+                {'url': url, 'type': 'html'},
+                {'url': 'https://www.dadeforex.com/ratelist.json', 'type': 'json'},
+            ]
             
-            # 查找澳元/人民币行
-            rows = soup.find_all('div', class_='divRow')
-            for row in rows:
-                text = row.get_text()
-                if ('澳元' in text or 'AUD' in text) and ('人民币' in text or 'CNY' in text):
-                    prices = re.findall(r'4\.\d{4}', text)
-                    if len(prices) >= 2:
-                        float_prices = [float(p) for p in prices]
-                        buy = max(float_prices)
-                        sell = min(float_prices)
-                        logger.info("Dadeforex: buy={}, sell={}".format(buy, sell))
-                        return {'AUD_CNY': {'buy': buy, 'sell': sell}}
-            
-            # 备选：查找表格
-            for table in soup.find_all('table'):
-                rows = table.find_all('tr')
-                for row in rows:
-                    cells = row.find_all(['td'])
-                    if len(cells) >= 2:
-                        prices = [c.get_text().strip() for c in cells if re.match(r'^4\.\d{4}$', c.get_text().strip())]
-                        if len(prices) >= 2:
-                            float_prices = [float(p) for p in prices]
-                            buy = max(float_prices)
-                            sell = min(float_prices)
-                            return {'AUD_CNY': {'buy': buy, 'sell': sell}}
+            for source in sources:
+                try:
+                    if source['type'] == 'json':
+                        # 尝试 JSON API
+                        resp = requests.get(source['url'], headers=self.headers, timeout=10)
+                        resp.raise_for_status()
+                        data = resp.json()
+                        
+                        items = data.get('data', {}).get('results_rate_json', [])
+                        for item in items:
+                            pair = item.get('CurrencyPair', '')
+                            if isinstance(pair, dict):
+                                pair = pair.get('#text', '')
+                            if '澳元' in pair and '人民币' in pair:
+                                ask = item.get('Ask')
+                                bid = item.get('Bid')
+                                if ask and bid:
+                                    buy = float(bid)
+                                    sell = float(ask)
+                                    logger.info("DadeForex (API): buy={}, sell={}".format(buy, sell))
+                                    return {'AUD_CNY': {'buy': buy, 'sell': sell}}
+                    
+                    else:
+                        # 尝试 HTML
+                        response = requests.get(source['url'], headers=self.headers, timeout=15)
+                        response.raise_for_status()
+                        soup = BeautifulSoup(response.content, 'html.parser')
+                        
+                        import re
+                        
+                        # 查找表格
+                        tables = soup.find_all('table')
+                        for table in tables:
+                            rows = table.find_all('tr')
+                            for row in rows:
+                                cells = row.find_all(['td'])
+                                if len(cells) >= 2:
+                                    prices = [c.get_text().strip() for c in cells if re.match(r'^4\.\d{4}$', c.get_text().strip())]
+                                    if len(prices) >= 2:
+                                        float_prices = [float(p) for p in prices]
+                                        buy = max(float_prices)
+                                        sell = min(float_prices)
+                                        logger.info("DadeForex (table): buy={}, sell={}".format(buy, sell))
+                                        return {'AUD_CNY': {'buy': buy, 'sell': sell}}
+                        
+                        # 从页面文本中提取
+                        page_text = soup.get_text()
+                        all_prices = re.findall(r'4\.\d{4}', page_text)
+                        if all_prices:
+                            unique_prices = list(set([float(p) for p in all_prices]))
+                            valid_prices = [p for p in unique_prices if 4.5 < p < 5.0]
+                            if len(valid_prices) >= 2:
+                                buy = max(valid_prices)
+                                sell = min(valid_prices)
+                                logger.info("DadeForex (text): buy={}, sell={}".format(buy, sell))
+                                return {'AUD_CNY': {'buy': buy, 'sell': sell}}
+                
+                except Exception as e:
+                    logger.warning("DadeForex source {} failed: {}".format(source['url'], e))
+                    continue
             
             return {'AUD_CNY': {'buy': None, 'sell': None}}
         except Exception as e:
