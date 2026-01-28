@@ -1,0 +1,119 @@
+[
+  {
+    "text": "HOME\n \nABOUT US\n \nBUSINESS INTRODUCTION\n \nLIVE RATE\n \nCONTACT US\nCN \n\n/\n\n EN ABOUT US\n\nABOUT US\n关于我们\n企业介绍 About Us\n我们的优势 Our Advantage\n反洗钱政策 Anti-Money Laundering\n免责声明 Disclaimer\n企业荣誉 Kundax\nSERVICE\n业",
+    "num": "4.4636",
+    "chain": [
+      "DIV:",
+      "BODY:",
+      "HTML:js sb0"
+    ]
+  },
+  {
+    "text": "CURRENCY PAIR\n交易币对比\n\t\nWE SELL CASH\n现钞买入价\n\t\nWE BUY CASH\n现钞卖出价\n\t\nWE SELL TT\n现汇买入价\n\t\nWE BUY TT\n现汇卖出价\nAUD\nCNY\n\t\n4.4636\n\t\n5.2235\n\t\n4.6779\n\t\n4.8450\n\n\nAUD\nUSD\n\t\n0.6605\n\t\n0.7271\n\t\n0.6638\n\t\n0.7033\n\n\nAUD\nEUR\n\t\n",
+    "num": "4.4636",
+    "chain": [
+      "MAIN:",
+      "DIV:top-page top",
+      "SECTION:el-container"
+    ]
+  },
+  {
+    "text": "AUD\nCNY\n\t\n4.4636\n\t\n5.2235\n\t\n4.6779\n\t\n4.8450\n\n\nAUD\nUSD\n\t\n0.6605\n\t\n0.7271\n\t\n0.6638\n\t\n0.7033\n\n\nAUD\nEUR\n\t\n0.5523\n\t\n0.6171\n\t\n0.5574\n\t\n0.6031\n\n\nAUD\nHKD\n\t\n5.0709\n\t\n5.8988\n\t\n5.2198\n\t\n5.4771\n\n\nAUD\nNZD\n\t\n1.0981",
+    "num": "4.4636",
+    "chain": [
+      "DIV:el-table__body-wrapper is-scrolling-none",
+      "DIV:el-table el-table--fit el-table--scrollable-y el-table--enable-row-hover el-table--enable-row-transi",
+      "DIV:"
+    ]
+  },
+  {
+    "text": "AUD\nCNY\n\t\n4.4636\n\t\n5.2235\n\t\n4.6779\n\t\n4.8450",
+    "num": "4.4636",
+    "chain": [
+      "TR:el-table__row",
+      "TBODY:",
+      "TABLE:el-table__body"
+    ]
+  },
+  {
+    "text": "4.4636",
+    "num": "4.4636",
+    "chain": [
+      "TD:el-table_1_column_2 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  },
+  {
+    "text": "5.2235",
+    "num": "5.2235",
+    "chain": [
+      "TD:el-table_1_column_3 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  },
+  {
+    "text": "4.6779",
+    "num": "4.6779",
+    "chain": [
+      "TD:el-table_1_column_4 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  },
+  {
+    "text": "4.8450",
+    "num": "4.8450",
+    "chain": [
+      "TD:el-table_1_column_5 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  },
+  {
+    "text": "AUD\nHKD\n\t\n5.0709\n\t\n5.8988\n\t\n5.2198\n\t\n5.4771",
+    "num": "5.0709",
+    "chain": [
+      "TR:el-table__row",
+      "TBODY:",
+      "TABLE:el-table__body"
+    ]
+  },
+  {
+    "text": "5.0709",
+    "num": "5.0709",
+    "chain": [
+      "TD:el-table_1_column_2 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  },
+  {
+    "text": "5.8988",
+    "num": "5.8988",
+    "chain": [
+      "TD:el-table_1_column_3 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  },
+  {
+    "text": "5.2198",
+    "num": "5.2198",
+    "chain": [
+      "TD:el-table_1_column_4 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  },
+  {
+    "text": "5.4771",
+    "num": "5.4771",
+    "chain": [
+      "TD:el-table_1_column_5 is-center  el-table__cell",
+      "TR:el-table__row",
+      "TBODY:"
+    ]
+  }
+]

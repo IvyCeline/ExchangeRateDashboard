@@ -1,0 +1,47 @@
+{
+  "window_props": [
+    "postMessage",
+    "stm_wpcfto_ajaxurl",
+    "stm_wpcfto_nonces",
+    "ajaxurl",
+    "stm_ajax_load_events",
+    "stm_ajax_load_portfolio",
+    "stm_ajax_add_event_member_sc",
+    "stm_custom_register",
+    "stm_get_prices",
+    "stm_get_history",
+    "stm_ajax_add_review",
+    "sbiajaxurl",
+    "stm_gdpr_vars"
+  ],
+  "script_count": 33,
+  "scripts_search": [
+    {
+      "index": 7,
+      "snippet": "\n\t\tvar stm_wpcfto_ajaxurl = 'https://www.supay.com/wp-admin/admin-ajax.php';\n\t"
+    },
+    {
+      "index": 9,
+      "snippet": "\n            var ajaxurl = 'https://www.supay.com/wp-admin/admin-ajax.php';\n            var stm_ajax_load_events = 'a6face6243';\n            var stm_ajax_load_portfolio = '37c6263dbe';\n            var stm_ajax_add_event_member_sc = '447242b1d3';\n            var stm_custom_register = '463d75a279';\n            var stm_get_prices = '8f91c6821a';\n            var stm_get_history = 'a484f5948e';\n            var stm_ajax_add_review = '750c43ed1b';\n        "
+    },
+    {
+      "index": 14,
+      "snippet": "\nvar sbiajaxurl = \"https://www.supay.com/wp-admin/admin-ajax.php\";\n"
+    },
+    {
+      "index": 25,
+      "snippet": "\n/* <![CDATA[ */\nvar stm_gdpr_vars = {\"AjaxUrl\":\"https:\\/\\/www.supay.com\\/wp-admin\\/admin-ajax.php\",\"error_prefix\":\"\",\"success\":\"\"};\n/* ]]> */\n"
+    },
+    {
+      "index": 31,
+      "snippet": "\n\t\tvar\ttpj = jQuery;\n\n\t\tvar\trevapi1,revapi4;\n\n\t\tif(window.RS_MODULES === undefined) window.RS_MODULES = {};\n\t\tif(RS_MODULES.modules === undefined) RS_MODULES.modules = {};\n\t\tRS_MODULES.modules[\"revslider11\"] = {once: RS_MODULES.modules[\"revslider11\"]!==undefined ? RS_MODULES.modules[\"revslider11\"].once : undefined, init:function() {\n\t\t\twindow.revapi1 = window.revapi1===undefined || window.revapi1===null || window.revapi1.length===0  ? document.getElementById(\"rev_slider_1_1\") : window.revapi1;\n\t\t\tif(window.revapi1 === null || window.revapi1 === undefined || window.revapi1.length==0) { window.revapi1initTry = window.revapi1initTry ===undefined ? 0 : window.revapi1initTry+1; if (window.revapi1initTry<20) requestAnimationFrame(function() {RS_MODULES.modules[\"revslider11\"].init()}); return;}\n\t\t\twindow.revapi1 = jQuery(window.revapi1);\n\t\t\tif(window.revapi1.revolution==undefined){ revslider_showDoubleJqueryError(\"rev_slider_1_1\"); return;}\n\t\t\trevapi1.revolutionInit({\n\t\t\t\t\trevapi:\"revapi1\",\n\t\t\t\t\tDPR:\"dpr\",\n\t\t\t\t\tsliderLayout:\"fullwidth\",\n\t\t\t\t\tvisibilityLevels:\"1240,1024,1024,1024\",\n\t\t\t\t\tgridwidth:\"1300,1024,1024,1024\",\n\t\t\t\t\tgridheight:\"500,469,469,469\",\n\t\t\t\t\tlazyType:\"smart\",\n\t\t\t\t\tspinner:\"spinner10\",\n\t\t\t\t\tforceOverflow:true,\n\t\t\t\t\tperspective:600,\n\t\t\t\t\tperspectiveType:\"local\",\n\t\t\t\t\tspinnerclr:\"#FFFFFF\",\n\t\t\t\t\teditorheight:\"500,469,450,300\",\n\t\t\t\t\tresponsiveLevels:\"1240,1024,1024,1024\",\n\t\t\t\t\tajaxUrl:\"https://www.supay.com/wp-admin/admin-ajax.php\",\n\t\t\t\t\tprogressBar:{disableProgressBar:true},\n\t\t\t\t\tnavigation: {\n\t\t\t\t\t\tmouseScrollNavigation:false,\n\t\t\t\t\t\twheelCallDelay:1000,\n\t\t\t\t\t\tonHoverStop:false,\n\t\t\t\t\t\tarrows: {\n\t\t\t\t\t\t\tenable:true,\n\t\t\t\t\t\t\tstyle:\"hesperiden\",\n\t\t\t\t\t\t\tleft: {\n\t\t\t\t\t\t\t\th_offset:30,\n\t\t\t\t\t\t\t\tv_offset:50\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tright: {\n\t\t\t\t\t\t\t\th_offset:30,\n\t\t\t\t\t\t\t\tv_offset:50\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\tviewPort: {\n\t\t\t\t\t\tglobal:true,\n\t\t\t\t\t\tglobalDist:\"-200px\",\n\t\t\t\t\t\tenable:false,\n\t\t\t\t\t\tvisible_area:\"20%\"\n\t\t\t\t\t},\n\t\t\t\t\tfallbacks: {\n\t\t\t\t\t\tallowHTML5AutoPlayOnAndroid:true\n\t\t\t\t\t"
+    }
+  ],
+  "xhr_requests": [
+    {
+      "url": "https://www.supay.com/wp-admin/admin-ajax.php",
+      "method": "POST",
+      "post_data": "action=revslider_ajax_call_front&client_action=get_transitions"
+    }
+  ]
+}

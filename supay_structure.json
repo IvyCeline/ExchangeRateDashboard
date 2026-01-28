@@ -1,0 +1,44 @@
+{
+  "near_heading": [
+    {
+      "tag": "DIV",
+      "class": "vc_custom_heading base_font_color vc_custom_1649231384830 text_align_center",
+      "id": "rate-title",
+      "innerHTML": "<h2 style=\"font-size: 45px;line-height: 60px;text-align: center\" class=\"consulting-custom-title\">Real Time Exchange Rate</h2>"
+    },
+    {
+      "tag": "DIV",
+      "class": "wpb_wrapper",
+      "id": "",
+      "innerHTML": "<div class=\"vc_custom_heading base_font_color vc_custom_1649231384830 text_align_center\" id=\"rate-title\"><h2 style=\"font-size: 45px;line-height: 60px;text-align: center\" class=\"consulting-custom-title\">Real Time Exchange Rate</h2></div><div class=\"vc_row wpb_row vc_inner vc_row-fluid\"><div class=\"wp"
+    },
+    {
+      "tag": "DIV",
+      "class": "vc_column-inner ",
+      "id": "",
+      "innerHTML": "<div class=\"wpb_wrapper\"><div class=\"vc_custom_heading base_font_color vc_custom_1649231384830 text_align_center\" id=\"rate-title\"><h2 style=\"font-size: 45px;line-height: 60px;text-align: center\" class=\"consulting-custom-title\">Real Time Exchange Rate</h2></div><div class=\"vc_row wpb_row vc_inner vc_"
+    },
+    {
+      "tag": "DIV",
+      "class": "wpb_column vc_column_container vc_col-sm-12",
+      "id": "",
+      "innerHTML": "<div class=\"vc_column-inner \"><div class=\"wpb_wrapper\"><div class=\"vc_custom_heading base_font_color vc_custom_1649231384830 text_align_center\" id=\"rate-title\"><h2 style=\"font-size: 45px;line-height: 60px;text-align: center\" class=\"consulting-custom-title\">Real Time Exchange Rate</h2></div><div clas"
+    },
+    {
+      "tag": "DIV",
+      "class": "vc_row wpb_row vc_row-fluid vc_custom_1649230540109 vc_row-has-fill",
+      "id": "",
+      "innerHTML": "<div class=\"wpb_column vc_column_container vc_col-sm-12\"><div class=\"vc_column-inner \"><div class=\"wpb_wrapper\"><div class=\"vc_custom_heading base_font_color vc_custom_1649231384830 text_align_center\" id=\"rate-title\"><h2 style=\"font-size: 45px;line-height: 60px;text-align: center\" class=\"consulting-"
+    }
+  ],
+  "vip_elements": [],
+  "aud_cny_elements": [],
+  "price_elements": [],
+  "iframes": [
+    {
+      "src": "https://www.supay.com/rate.php?lang=en",
+      "name": "",
+      "id": ""
+    }
+  ]
+}

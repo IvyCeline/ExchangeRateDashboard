@@ -1,0 +1,13 @@
+{
+  "captured_ajax_requests": [
+    {
+      "url": "https://www.supay.com/wp-admin/admin-ajax.php",
+      "method": "POST",
+      "post_data": "action=revslider_ajax_call_front&client_action=get_transitions"
+    }
+  ],
+  "page_prices_found": {
+    "text": [],
+    "table": []
+  }
+}

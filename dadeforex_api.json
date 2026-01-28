@@ -1,0 +1,264 @@
+{
+  "success": true,
+  "data": {
+    "results_rate_json": [
+      {
+        "@attributes": {
+          "id": "1",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/CNY.png",
+          "OutCurrency": "RMB",
+          "OutCurrencyNameCH": "人民币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "CHINA",
+        "CurrencyPair": "澳元/人民币",
+        "VIPPrice": "true",
+        "Ask": "4.7010",
+        "Bid": "4.8460",
+        "AskCash": "4.7680",
+        "BidCash": "4.8110"
+      },
+      {
+        "@attributes": {
+          "id": "2",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/CNY.png",
+          "OutCurrency": "RMB",
+          "OutCurrencyNameCH": "人民币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "CHINA",
+        "CurrencyPair": "澳元/人民币",
+        "VIPPrice": "false",
+        "Ask": "4.6910",
+        "Bid": "4.8510",
+        "AskCash": "4.5610",
+        "BidCash": "5.0660"
+      },
+      {
+        "@attributes": {
+          "id": "3",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/USD.png",
+          "OutCurrency": "USD",
+          "OutCurrencyNameCH": "美金"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "UNITED STATES",
+        "CurrencyPair": "澳元/美金",
+        "VIPPrice": "false",
+        "Ask": "0.6832",
+        "Bid": "0.6967",
+        "AskCash": "0.6717",
+        "BidCash": "0.7097"
+      },
+      {
+        "@attributes": {
+          "id": "4",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/HKD.png",
+          "OutCurrency": "HKD",
+          "OutCurrencyNameCH": "港币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "HONG KONG",
+        "CurrencyPair": "澳元/港币",
+        "VIPPrice": "false",
+        "Ask": "5.3176",
+        "Bid": "5.4376",
+        "AskCash": "5.1176",
+        "BidCash": "5.5376"
+      },
+      {
+        "@attributes": {
+          "id": "5",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/NZD.png",
+          "OutCurrency": "NZD",
+          "OutCurrencyNameCH": "纽币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "NEW ZEALAND",
+        "CurrencyPair": "澳元/纽币",
+        "VIPPrice": "false",
+        "Ask": "1.1412",
+        "Bid": "1.1762",
+        "AskCash": "1.1262",
+        "BidCash": "1.1762"
+      },
+      {
+        "@attributes": {
+          "id": "6",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/JPY.png",
+          "OutCurrency": "JPY",
+          "OutCurrencyNameCH": "日币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "JAPAN",
+        "CurrencyPair": "澳元/日币",
+        "VIPPrice": "false",
+        "Ask": "105.3759",
+        "Bid": "108.0759",
+        "AskCash": "103.3759",
+        "BidCash": "106.5759"
+      },
+      {
+        "@attributes": {
+          "id": "7",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/EUR.png",
+          "OutCurrency": "EUR",
+          "OutCurrencyNameCH": "欧元"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "EUROPE",
+        "CurrencyPair": "澳元/欧元",
+        "VIPPrice": "false",
+        "Ask": "0.5746",
+        "Bid": "0.6006",
+        "AskCash": "0.5606",
+        "BidCash": "0.6006"
+      },
+      {
+        "@attributes": {
+          "id": "8",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/CAD.png",
+          "OutCurrency": "CAD",
+          "OutCurrencyNameCH": "加币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "CANADA",
+        "CurrencyPair": "澳元/加币",
+        "VIPPrice": "false",
+        "Ask": "0.9380",
+        "Bid": "0.9560",
+        "AskCash": "0.9070",
+        "BidCash": "0.9750"
+      },
+      {
+        "@attributes": {
+          "id": "9",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/GBP.png",
+          "OutCurrency": "GBP",
+          "OutCurrencyNameCH": "英镑"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "UNITED KINGDOM",
+        "CurrencyPair": "澳元/英镑",
+        "VIPPrice": "false",
+        "Ask": "0.4944",
+        "Bid": "0.5194",
+        "AskCash": "0.4844",
+        "BidCash": "0.5244"
+      },
+      {
+        "@attributes": {
+          "id": "10",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/SGD.png",
+          "OutCurrency": "SGD",
+          "OutCurrencyNameCH": "新币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "SINGAPORE",
+        "CurrencyPair": "澳元/新币",
+        "VIPPrice": "false",
+        "Ask": "0.8707",
+        "Bid": "0.8862",
+        "AskCash": "0.8312",
+        "BidCash": "0.8962"
+      },
+      {
+        "@attributes": {
+          "id": "11",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/MYR.png",
+          "OutCurrency": "MYR",
+          "OutCurrencyNameCH": "马币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "MALAYSIA",
+        "CurrencyPair": "澳元/马币",
+        "VIPPrice": "false",
+        "Ask": "2.6845",
+        "Bid": "2.8045",
+        "AskCash": "2.1345",
+        "BidCash": "3.0845"
+      },
+      {
+        "@attributes": {
+          "id": "12",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/TWD.png",
+          "OutCurrency": "TWD",
+          "OutCurrencyNameCH": "台币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "TAIWAN",
+        "CurrencyPair": "澳元/台币",
+        "VIPPrice": "false",
+        "Ask": "20.9579",
+        "Bid": "22.7579",
+        "AskCash": "20.5579",
+        "BidCash": "23.7579"
+      },
+      {
+        "@attributes": {
+          "id": "13",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/INR.png",
+          "OutCurrency": "INR",
+          "OutCurrencyNameCH": "印度卢比"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "INDIA",
+        "CurrencyPair": "澳元/印度卢比",
+        "VIPPrice": "false",
+        "Ask": "62.2389",
+        "Bid": "65.2489",
+        "AskCash": "63.2489",
+        "BidCash": "63.2489"
+      },
+      {
+        "@attributes": {
+          "id": "14",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/THB.png",
+          "OutCurrency": "THB",
+          "OutCurrencyNameCH": "泰铢"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "THAILAND",
+        "CurrencyPair": "澳元/泰铢",
+        "VIPPrice": "false",
+        "Ask": "21.2566",
+        "Bid": "22.0566",
+        "AskCash": "21.5566",
+        "BidCash": "21.5566"
+      },
+      {
+        "@attributes": {
+          "id": "15",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/VND.png",
+          "OutCurrency": "VND",
+          "OutCurrencyNameCH": "越南盾"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/AUD.png",
+        "OutCountryName": "VND",
+        "CurrencyPair": "澳元/越南盾",
+        "VIPPrice": "false",
+        "Ask": "17709.3103",
+        "Bid": "18559.3103",
+        "AskCash": "18059.3103",
+        "BidCash": "18059.3103"
+      },
+      {
+        "@attributes": {
+          "id": "16",
+          "resource": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/CNY.png",
+          "OutCurrency": "RMB",
+          "OutCurrencyNameCH": "人民币"
+        },
+        "InCurrencyImg": "http://rate.moneychain.com.au/UploadFiles/images/FlagImages/USD.png",
+        "OutCountryName": "CHINA",
+        "CurrencyPair": "美金/人民币",
+        "VIPPrice": "false",
+        "Ask": "6.8942",
+        "Bid": "7.1042",
+        "AskCash": "6.9542",
+        "BidCash": "6.9542"
+      }
+    ],
+    "curr_date": "01-27, 11:51 （悉尼时间）"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "supay": {
+    "AUD_CNY": {
+      "buy": 4.908,
+      "sell": 4.734
+    }
+  },
+  "gtrading": {
+    "AUD_CNY": {
+      "buy": 4.7803,
+      "sell": 4.9255
+    }
+  },
+  "moneychase": {
+    "AUD_CNY": {
+      "buy": 4.7789,
+      "sell": 4.9489
+    }
+  },
+  "kundaxpay": {
+    "AUD_CNY": {
+      "buy": 4.711,
+      "sell": 4.9056
+    }
+  },
+  "timestamp": "2026-01-28T12:00:27.358609"
+}

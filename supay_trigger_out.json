@@ -1,0 +1,13 @@
+{
+  "globals": {
+    "stm_get_prices": "291f1bc11f",
+    "ajaxurl": "https://www.supay.com/wp-admin/admin-ajax.php"
+  },
+  "post_result": {
+    "status": "ok",
+    "data": []
+  },
+  "call_result": {
+    "called": null
+  }
+}

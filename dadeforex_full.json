@@ -1,0 +1,18 @@
+[
+  {
+    "CurrencyPair": "澳元/人民币",
+    "VIPPrice": "true",
+    "Ask": "4.7153",
+    "Bid": "4.8603",
+    "AskCash": "4.7823",
+    "BidCash": "4.8253"
+  },
+  {
+    "CurrencyPair": "澳元/人民币",
+    "VIPPrice": "false",
+    "Ask": "4.7053",
+    "Bid": "4.8653",
+    "AskCash": "4.5753",
+    "BidCash": "5.0803"
+  }
+]

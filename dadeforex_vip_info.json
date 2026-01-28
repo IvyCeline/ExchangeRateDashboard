@@ -1,0 +1,16 @@
+[
+  {
+    "CurrencyPair": "澳元/人民币",
+    "VIPPrice": "true",
+    "VIPPrice_type": "<class 'str'>",
+    "Ask": "4.7167",
+    "Bid": "4.8617"
+  },
+  {
+    "CurrencyPair": "澳元/人民币",
+    "VIPPrice": "false",
+    "VIPPrice_type": "<class 'str'>",
+    "Ask": "4.7067",
+    "Bid": "4.8667"
+  }
+]

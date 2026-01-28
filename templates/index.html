@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳大利亚换汇公司汇率对比</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        .update-info {
+            color: #666;
+            font-size: 14px;
+        }
+        .update-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .update-btn:hover {
+            background-color: #0056b3;
+        }
+        .update-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .update-btn.updating {
+            background-color: #28a745;
+        }
+        .rates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .rate-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fafafa;
+            transition: box-shadow 0.3s;
+        }
+        .rate-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .rate-card.updating {
+            border-color: #28a745;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);
+        }
+        .company-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .rate-info {
+            margin: 10px 0;
+        }
+        .rate-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .rate-value {
+            font-size: 16px;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .no-data {
+            color: #999;
+            font-style: italic;
+        }
+        .last-update {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .status-online {
+            background-color: #28a745;
+        }
+        .status-offline {
+            background-color: #dc3545;
+        }
+        .countdown {
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>澳大利亚换汇公司汇率对比</h1>
+
+        <div class="header">
+            <div class="update-info">
+                <span id="last-update">数据加载中...</span>
+            </div>
+            <button class="update-btn" id="update-btn" onclick="updateRates()">立即刷新</button>
+        </div>
+
+        <div id="rates-container">
+            <div class="loading">正在加载汇率数据...</div>
+        </div>
+
+        <div class="last-update">
+            <p>数据每30秒自动更新一次（上午10点至下午6点）</p>
+            <p>仅显示AUD/CNY汇率（现汇）</p>
+        </div>
+    </div>
+
+    <script>
+        let ratesData = {};
+        let countdownTimer = null;
+        let countdownValue = 10;
+
+        // 加载汇率数据
+        async function loadRates() {
+            try {
+                const response = await fetch('/api/rates');
+                ratesData = await response.json();
+                displayRates();
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('rates-container').innerHTML =
+                    '<div class="loading">加载数据失败，请稍后重试</div>';
+            }
+        }
+
+        // 显示汇率数据
+        function displayRates() {
+            const container = document.getElementById('rates-container');
+
+            if (!ratesData || Object.keys(ratesData).length === 0) {
+                container.innerHTML = '<div class="loading">暂无汇率数据</div>';
+                return;
+            }
+
+            let html = '<div class="rates-grid">';
+
+            // 获取公司列表
+            fetch('/api/companies')
+                .then(response => response.json())
+                .then(companies => {
+                    for (const [companyKey, companyInfo] of Object.entries(companies)) {
+                        const companyRates = ratesData[companyKey];
+                        const hasData = companyRates && companyRates.AUD_CNY &&
+                                      (companyRates.AUD_CNY.buy !== null || companyRates.AUD_CNY.sell !== null);
+
+                        html += `
+                            <div class="rate-card" id="card-${companyKey}">
+                                <div class="company-name">
+                                    <span class="status-indicator ${hasData ? 'status-online' : 'status-offline'}"></span>
+                                    ${companyInfo.name}
+                                </div>
+                                <div class="rate-info">
+                                    <span class="rate-label">买入价: </span>
+                                    <span class="rate-value">
+                                        ${hasData && companyRates.AUD_CNY.buy !== null ?
+                                          companyRates.AUD_CNY.buy.toFixed(4) : '--'}
+                                    </span>
+                                </div>
+                                <div class="rate-info">
+                                    <span class="rate-label">卖出价: </span>
+                                    <span class="rate-value">
+                                        ${hasData && companyRates.AUD_CNY.sell !== null ?
+                                          companyRates.AUD_CNY.sell.toFixed(4) : '--'}
+                                    </span>
+                                </div>
+                                <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                                    <a href="${companyInfo.url}" target="_blank">查看官网</a>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    html += '</div>';
+                    container.innerHTML = html;
+
+                    // 更新最后更新时间
+                    if (ratesData.timestamp) {
+                        const timestamp = new Date(ratesData.timestamp);
+                        document.getElementById('last-update').textContent =
+                            `最后更新: ${timestamp.toLocaleString('zh-CN')}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('加载公司信息失败:', error);
+                });
+        }
+
+        // 手动更新汇率 - 立即生效
+        async function updateRates() {
+            const btn = document.getElementById('update-btn');
+            btn.textContent = '更新中...';
+            btn.disabled = true;
+            btn.classList.add('updating');
+
+            try {
+                const response = await fetch('/api/update');
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    // 使用返回的最新数据立即更新显示
+                    if (result.rates) {
+                        ratesData = result.rates;
+                        displayRates();
+                    } else {
+                        loadRates();
+                    }
+                } else {
+                    alert('更新失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('更新失败: ' + error.message);
+            } finally {
+                btn.textContent = '立即刷新';
+                btn.disabled = false;
+                btn.classList.remove('updating');
+            }
+        }
+
+        // 定时自动刷新 - 每10秒真正重新抓取数据
+        let autoRefreshTimer = null;
+        
+        function startAutoRefresh() {
+            // 立即执行一次
+            autoRefreshRates();
+            
+            // 每10秒自动刷新
+            autoRefreshTimer = setInterval(autoRefreshRates, 10000);
+        }
+
+        // 自动刷新 - 真正重新抓取数据
+        async function autoRefreshRates() {
+            try {
+                const response = await fetch('/api/update');
+                const result = await response.json();
+                if (result.status === 'success' && result.rates) {
+                    ratesData = result.rates;
+                    displayRates();
+                }
+            } catch (error) {
+                console.error('自动刷新失败:', error);
+            }
+        }
+
+        // 页面加载时获取数据
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRates();
+            startAutoRefresh();
+        });
+    </script>
+</body>
+</html>
